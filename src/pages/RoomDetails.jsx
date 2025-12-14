@@ -9,7 +9,7 @@ import {
   query,
   where,
   getDocs,
-  serverTimestamp,
+  Timestamp,
 } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 
@@ -18,7 +18,7 @@ const RoomDetails = () => {
   const { user } = useAuth();
 
   const [room, setRoom] = useState(null);
-  const [requested, setRequested] = useState(false);
+  const [alreadyRequested, setAlreadyRequested] = useState(false);
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -40,50 +40,55 @@ const RoomDetails = () => {
         where("seekerId", "==", user.uid)
       );
       const snap = await getDocs(q);
-      if (!snap.empty) setRequested(true);
+      if (!snap.empty) setAlreadyRequested(true);
     };
-
     checkRequest();
   }, [user, id]);
 
   const handleBooking = async () => {
-    if (!user) return alert("Login first");
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
 
-    // booking create
-    await addDoc(collection(db, "bookings"), {
-      roomId: id,
-      ownerId: room.ownerId,
-      seekerId: user.uid,
-      status: "pending",
-      createdAt: serverTimestamp(),
-    });
+  await addDoc(collection(db, "bookings"), {
+  roomId: id,
+  ownerId: room.ownerId,
+  seekerId: user.uid,
+  status: "pending",
+  notificationSent: false, // 🔑 IMPORTANT
+  createdAt: new Date(),
+  });
 
-    // 🔔 notify owner (REAL APP STYLE)
     await addDoc(collection(db, "notifications"), {
       userId: room.ownerId,
-      message: `📩 New booking request for "${room.title}"`,
+      message: `📩 You got a booking request for "${room.title}"`,
+      type: "booking",
+      roomId: id,
       redirectTo: "/booking-requests",
       read: false,
-      createdAt: serverTimestamp(),
+      createdAt: Timestamp.now(),
     });
 
-    setRequested(true);
-    alert("Booking request sent");
+    setAlreadyRequested(true);
+    alert("Booking request sent!");
   };
 
   if (!room) return <p>Loading...</p>;
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: "20px" }}>
       <h2>{room.title}</h2>
-      <p>₹ {room.rent}</p>
-      <p>{room.location}</p>
+      <p><b>Rent:</b> ₹{room.rent}</p>
+      <p><b>Location:</b> {room.location}</p>
 
-      {room.status === "booked" && <p>❌ Room already booked</p>}
+      {room.status === "booked" && (
+        <p style={{ color: "red" }}>❌ Room already booked</p>
+      )}
 
-      {user?.uid !== room.ownerId && room.status !== "booked" && (
-        <button disabled={requested} onClick={handleBooking}>
-          {requested ? "Request Sent" : "Request Booking"}
+      {room.status !== "booked" && user?.uid !== room.ownerId && (
+        <button onClick={handleBooking} disabled={alreadyRequested}>
+          {alreadyRequested ? "Request Sent" : "Request Booking"}
         </button>
       )}
     </div>
