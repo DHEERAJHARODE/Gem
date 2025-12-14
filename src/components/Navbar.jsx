@@ -106,7 +106,7 @@ const Navbar = () => {
           {user && (
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <Link to="/rooms">Rooms</Link>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboard"> Dashboard</Link>
 
               <span style={styles.bell} onClick={handleBellClick}>
                 🔔
