@@ -9,7 +9,7 @@ import EditRoom from "../pages/EditRoom";
 import RoomsList from "../pages/RoomsList";
 import RoomDetails from "../pages/RoomDetails";
 import BookingRequests from "../pages/BookingRequests";
-
+import ChooseRole from "../pages/ChooseRole";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute"; // optional: redirect logged-in users
 
@@ -80,6 +80,7 @@ const AppRoutes = () => {
       {/* Public accessible rooms */}
       <Route path="/rooms" element={<RoomsList />} />
       <Route path="/room/:id" element={<RoomDetails />} />
+      <Route path="/choose-role" element={<ChooseRole />} />
     </Routes>
   );
 };

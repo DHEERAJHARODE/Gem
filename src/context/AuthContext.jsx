@@ -1,6 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import {
+  onAuthStateChanged,
+  signOut,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth, googleProvider, db } from "../firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -9,25 +14,40 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
   const logout = async () => {
     await signOut(auth);
   };
 
+  // ✅ GOOGLE SIGN IN
+  const signInWithGoogle = async (navigate) => {
+    const result = await signInWithPopup(auth, googleProvider);
+
+    const user = result.user;
+    const isNewUser = result._tokenResponse?.isNewUser;
+
+    const userRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userRef);
+
+    if (isNewUser || !snap.exists()) {
+      navigate("/choose-role"); // 👈 NEW GOOGLE USER
+    } else {
+      navigate("/dashboard"); // 👈 EXISTING USER
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, logout }}>
+    <AuthContext.Provider value={{ user, logout, signInWithGoogle }}>
       {!loading && children}
     </AuthContext.Provider>
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);
-

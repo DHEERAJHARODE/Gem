@@ -3,10 +3,12 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { signInWithGoogle } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,24 +20,17 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", res.user.uid), {
         email,
-        password
-      );
-
-      const user = userCredential.user;
-
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
         role,
         createdAt: new Date(),
       });
 
-      alert("Registration successful 🎉");
       navigate("/login");
-    } catch (error) {
-      alert(error.message);
+    } catch (err) {
+      alert(err.message);
     } finally {
       setLoading(false);
     }
@@ -46,8 +41,25 @@ const Register = () => {
       <form className="register-card" onSubmit={handleRegister}>
         <h2>Create your account</h2>
         <p className="subtitle">
-          Join trusted room owners & seekers across India
+          Join trusted room owners & seekers
         </p>
+
+        {/* ✅ GOOGLE BUTTON */}
+        <button
+          type="button"
+          className="google-btn"
+          onClick={() => signInWithGoogle(navigate)}
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="google"
+          />
+          Continue with Google
+        </button>
+
+        <div className="divider">
+          <span>or</span>
+        </div>
 
         <input
           type="email"
@@ -95,7 +107,9 @@ const Register = () => {
 
         <p className="login-text">
           Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>Login</span>
+          <span onClick={() => navigate("/login")}>
+            Login
+          </span>
         </p>
       </form>
     </div>

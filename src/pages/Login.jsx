@@ -4,24 +4,24 @@ import { auth, db, messaging } from "../firebase/firebaseConfig";
 import { getToken } from "firebase/messaging";
 import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { signInWithGoogle } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🔔 Save FCM Token
   const saveFcmToken = async (user) => {
     try {
       const permission = await Notification.requestPermission();
       if (permission !== "granted") return;
 
       const token = await getToken(messaging, {
-        vapidKey:
-          "BFRmxxb7F7Ysi6B4RgbXFlzib5Hytpl8Ky_hyUovI9ys-ZMv5kEaA8I4_s-jh4ikMxQgXPwjZKiFo2JlsD1bYtM",
+        vapidKey: "YOUR_VAPID_KEY",
       });
 
       if (!token) return;
@@ -30,8 +30,8 @@ const Login = () => {
         fcmToken: token,
         updatedAt: new Date(),
       });
-    } catch (error) {
-      console.error("FCM error:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -40,20 +40,11 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      const user = userCredential.user;
-
-      await saveFcmToken(user);
-
-      alert("Login successful ✅");
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      await saveFcmToken(res.user);
       navigate("/dashboard");
-    } catch (error) {
-      alert(error.message);
+    } catch (err) {
+      alert(err.message);
     } finally {
       setLoading(false);
     }
@@ -62,8 +53,25 @@ const Login = () => {
   return (
     <div className="login-container">
       <form className="login-card" onSubmit={handleLogin}>
-        <h2>Welcome back</h2>
-        <p className="subtitle">Login to continue your journey</p>
+        <h2>Welcome Back</h2>
+        <p className="subtitle">Login to access your account</p>
+
+        {/* ✅ GOOGLE BUTTON */}
+        <button
+          type="button"
+          className="google-btn"
+          onClick={() => signInWithGoogle(navigate)}
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="google"
+          />
+          Continue with Google
+        </button>
+
+        <div className="divider">
+          <span>or</span>
+        </div>
 
         <input
           type="email"
@@ -84,10 +92,8 @@ const Login = () => {
         </button>
 
         <p className="register-text">
-          New here?{" "}
-          <span onClick={() => navigate("/register")}>
-            Create an account
-          </span>
+          Don't have an account?{" "}
+          <span onClick={() => navigate("/register")}>Register</span>
         </p>
       </form>
     </div>
