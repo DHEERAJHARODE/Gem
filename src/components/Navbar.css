@@ -125,6 +125,7 @@
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
   transition: right 0.35s ease;
   z-index: 2000;
+  overflow-y: auto; /* Scrollable if content overflows */
 }
 
 .sidebar.open {
@@ -138,7 +139,20 @@
 }
 
 .sidebar .logout {
-  margin-top: auto;
+  margin-top: 20px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.sidebar .logout:hover {
+  background: #dc2626;
 }
 
 .close {

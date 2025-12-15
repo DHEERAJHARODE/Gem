@@ -13,6 +13,7 @@ import {
 import { db } from "../firebase/firebaseConfig";
 import { FiMenu, FiX } from "react-icons/fi";
 import "./Navbar.css";
+
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [notifications, setNotifications] = useState([]);
@@ -142,8 +143,8 @@ const Navbar = () => {
             <button
               className="logout"
               onClick={async () => {
-                await logout();   // call your AuthContext logout
-                navigate("/login"); // redirect to login page
+                await logout();
+                navigate("/login");
               }}
             >
               Logout
@@ -199,7 +200,14 @@ const Navbar = () => {
             </Link>
           </>
         ) : (
-          <button className="logout" onClick={logout}>
+          <button
+            className="logout"
+            onClick={async () => {
+              await logout();
+              setMobileOpen(false);
+              navigate("/login");
+            }}
+          >
             Logout
           </button>
         )}
