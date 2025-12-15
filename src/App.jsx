@@ -3,6 +3,7 @@ import AppRoutes from "./routes/AppRoutes";
 import Navbar from "./components/Navbar";
 import { getFcmToken } from "./firebase/getFcmToken";
 import "./App.css";
+import NotificationListener from "./components/NotificationListener";
 
 function App() {
   useEffect(() => {
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <>
+      <NotificationListener />
       <Navbar />
       <AppRoutes />
     </>
