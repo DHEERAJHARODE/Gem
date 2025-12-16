@@ -19,6 +19,8 @@ const RoomDetails = () => {
   const { user } = useAuth();
   const [room, setRoom] = useState(null);
   const [requested, setRequested] = useState(false);
+  const [profile, setProfile] = useState(null);
+  const [profileIncomplete, setProfileIncomplete] = useState(false);
 
   // Fetch room details
   useEffect(() => {
@@ -26,6 +28,34 @@ const RoomDetails = () => {
       if (snap.exists()) setRoom({ id: snap.id, ...snap.data() });
     });
   }, [id]);
+
+  // Fetch seeker profile
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchProfile = async () => {
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (snap.exists()) {
+        const data = snap.data();
+        setProfile(data);
+
+        // Check if profile is incomplete
+        if (
+          !data.name ||
+          !data.phone ||
+          !data.gender ||
+          !data.profileImage
+        ) {
+          setProfileIncomplete(true);
+        }
+      } else {
+        // User doc does not exist
+        setProfileIncomplete(true);
+      }
+    };
+
+    fetchProfile();
+  }, [user]);
 
   // Check if user already requested booking
   useEffect(() => {
@@ -43,6 +73,12 @@ const RoomDetails = () => {
   }, [user, id]);
 
   const handleBooking = async () => {
+    if (profileIncomplete) {
+      alert("Please complete your profile to request booking.");
+      window.location.href = "/profile";
+      return;
+    }
+
     await addDoc(collection(db, "bookings"), {
       roomId: id,
       ownerId: room.ownerId,
@@ -104,9 +140,21 @@ const RoomDetails = () => {
           )}
 
           {user?.uid !== room.ownerId && room.status !== "booked" && (
-            <button disabled={requested} onClick={handleBooking}>
-              {requested ? "Request Sent" : "Request Booking"}
-            </button>
+            <>
+              <button
+                disabled={requested || profileIncomplete}
+                onClick={handleBooking}
+              >
+                {requested ? "Request Sent" : "Request Booking"}
+              </button>
+
+              {profileIncomplete && (
+                <p className="login-note">
+                  ⚠️ Please complete your profile to request booking.{" "}
+                  <a href="/profile" style={{ color: "#4f46e5" }}>Go to Profile</a>
+                </p>
+              )}
+            </>
           )}
 
           {!user && (
