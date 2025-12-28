@@ -22,30 +22,19 @@ const RoomsList = () => {
     return () => unsubscribe();
   }, []);
 
-  // ✅ Helper: check availability based on date
   const isAvailableNow = (room) => {
     if (room.availableNow) return true;
     if (!room.availableFrom) return false;
-
-    const today = new Date();
-    const availableDate = new Date(room.availableFrom);
-    return availableDate <= today;
+    return new Date(room.availableFrom) <= new Date();
   };
 
-  // ✅ Filter + Sort Logic
   const filteredRooms = rooms
     .filter((room) =>
-      room.location
-        .toLowerCase()
-        .includes(searchLocation.toLowerCase())
+      room.location.toLowerCase().includes(searchLocation.toLowerCase())
     )
     .filter((room) => {
-      if (availabilityFilter === "now") {
-        return isAvailableNow(room);
-      }
-      if (availabilityFilter === "next") {
-        return !isAvailableNow(room);
-      }
+      if (availabilityFilter === "now") return isAvailableNow(room);
+      if (availabilityFilter === "next") return !isAvailableNow(room);
       return true;
     })
     .sort((a, b) => {
@@ -57,21 +46,21 @@ const RoomsList = () => {
   return (
     <div className="rooms-page">
       <h2>Available Rooms</h2>
-      <p className="subtitle">Handpicked rooms from trusted owners</p>
+      <p className="subtitle">Find your perfect stay with ease</p>
 
-      {/* ✅ FILTER BAR */}
+      {/* FILTER BAR */}
       <div className="filter-bar">
         <input
           type="text"
-          placeholder="Search by location"
+          placeholder="Search location..."
           value={searchLocation}
           onChange={(e) => setSearchLocation(e.target.value)}
         />
 
         <select onChange={(e) => setPriceSort(e.target.value)}>
           <option value="">Sort by price</option>
-          <option value="low">Low to High</option>
-          <option value="high">High to Low</option>
+          <option value="low">Low → High</option>
+          <option value="high">High → Low</option>
         </select>
 
         <select onChange={(e) => setAvailabilityFilter(e.target.value)}>
@@ -92,29 +81,23 @@ const RoomsList = () => {
           const availableNow = isAvailableNow(room);
 
           return (
-            <Link
-              to={`/room/${room.id}`}
-              className="room-link"
-              key={room.id}
-            >
+            <Link to={`/room/${room.id}`} className="room-link" key={room.id}>
               <div className="room-card">
+                {/* BADGE OUTSIDE IMAGE */}
+                <span
+                  className={`availability-badge ${
+                    availableNow ? "now" : "later"
+                  }`}
+                >
+                  {availableNow ? "Available Now" : `From ${room.availableFrom}`}
+                </span>
+
                 <div className="room-image">
                   {room.image ? (
                     <img src={room.image} alt={room.title} />
                   ) : (
-                    <span>Room</span>
+                    <div className="no-image">Room</div>
                   )}
-
-                  {/* ✅ Availability Badge */}
-                  <span
-                    className={`badge ${
-                      availableNow ? "available" : "upcoming"
-                    }`}
-                  >
-                    {availableNow
-                      ? "Available Now"
-                      : `From ${room.availableFrom}`}
-                  </span>
                 </div>
 
                 <div className="room-info">
@@ -123,7 +106,7 @@ const RoomsList = () => {
 
                   <div className="room-footer">
                     <span className="price">₹{room.rent}/month</span>
-                    <span className="view">View</span>
+                    <span className="view">View →</span>
                   </div>
                 </div>
               </div>
