@@ -1,12 +1,10 @@
-
-
-
 {
-  "redirects": [
+  "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "https://www.google.com/",
-      "permanent": true
+      "destination": "/index.html"
     }
-  ]
+  ] 
 }
+
+
