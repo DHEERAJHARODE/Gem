@@ -9,7 +9,7 @@ import {
   orderBy,
   doc,
   updateDoc,
-  getDoc
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -28,7 +28,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const lastPopupId = useRef(null);
 
-  /* ================= FETCH USER PROFILE ================= */
+  /* ================= FETCH PROFILE ================= */
   useEffect(() => {
     if (!user?.uid) return;
 
@@ -91,11 +91,11 @@ const Navbar = () => {
       <nav className="navbar">
         <h3 className="logo">Stay Safe</h3>
 
-        {/* DESKTOP */}
+        {/* ========== DESKTOP ========== */}
         <div className="nav-links desktop">
           <Link to="/">Home</Link>
 
-          {user && (
+          {user ? (
             <>
               <Link to="/rooms">Rooms</Link>
               <Link to="/dashboard">Dashboard</Link>
@@ -121,9 +121,10 @@ const Navbar = () => {
                         className={`item ${n.read ? "" : "unread"}`}
                         onClick={async () => {
                           if (!n.read) {
-                            await updateDoc(doc(db, "notifications", n.id), {
-                              read: true,
-                            });
+                            await updateDoc(
+                              doc(db, "notifications", n.id),
+                              { read: true }
+                            );
                           }
                           setShowList(false);
                           navigate(n.redirectTo);
@@ -136,7 +137,7 @@ const Navbar = () => {
                 )}
               </div>
 
-              {/* 👤 PROFILE AVATAR */}
+              {/* 👤 Avatar */}
               <img
                 src={
                   profile?.profileImage ||
@@ -146,28 +147,26 @@ const Navbar = () => {
                 className="nav-avatar"
                 onClick={() => navigate("/profile")}
               />
-            </>
-          )}
 
-          {!user ? (
+              <button
+                className="logout"
+                onClick={async () => {
+                  await logout();
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
             <>
               <Link to="/login">Login</Link>
               <Link to="/register">Register</Link>
             </>
-          ) : (
-            <button
-              className="logout"
-              onClick={async () => {
-                await logout();
-                navigate("/login");
-              }}
-            >
-              Logout
-            </button>
           )}
         </div>
 
-        {/* MOBILE ICON */}
+        {/* ========== MOBILE ICON ========== */}
         <div className="mobile-menu" onClick={() => setMobileOpen(true)}>
           <FiMenu size={24} />
         </div>
@@ -178,13 +177,13 @@ const Navbar = () => {
         <div className="overlay" onClick={() => setMobileOpen(false)} />
       )}
 
-      {/* SIDEBAR */}
+      {/* ========== SIDEBAR ========== */}
       <div className={`sidebar ${mobileOpen ? "open" : ""}`}>
         <div className="close" onClick={() => setMobileOpen(false)}>
           <FiX size={22} />
         </div>
 
-        {/* 👤 SIDEBAR PROFILE */}
+        {/* PROFILE */}
         {user && (
           <div
             className="sidebar-profile"
@@ -208,19 +207,29 @@ const Navbar = () => {
         )}
 
         <Link onClick={() => setMobileOpen(false)} to="/">Home</Link>
-        <Link onClick={() => setMobileOpen(false)} to="/rooms">Rooms</Link>
-        <Link onClick={() => setMobileOpen(false)} to="/dashboard">Dashboard</Link>
 
-        <button
-          className="logout"
-          onClick={async () => {
-            await logout();
-            setMobileOpen(false);
-            navigate("/login");
-          }}
-        >
-          Logout
-        </button>
+        {user ? (
+          <>
+            <Link onClick={() => setMobileOpen(false)} to="/rooms">Rooms</Link>
+            <Link onClick={() => setMobileOpen(false)} to="/dashboard">Dashboard</Link>
+
+            <button
+              className="logout"
+              onClick={async () => {
+                await logout();
+                setMobileOpen(false);
+                navigate("/login");
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link onClick={() => setMobileOpen(false)} to="/login">Login</Link>
+            <Link onClick={() => setMobileOpen(false)} to="/register">Register</Link>
+          </>
+        )}
       </div>
 
       {/* POPUP */}
