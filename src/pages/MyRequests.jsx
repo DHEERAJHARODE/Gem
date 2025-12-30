@@ -91,7 +91,7 @@ const MyRequests = () => {
                 {r.status === "accepted" && (
                   <div className="request-actions">
                     <Link to={`/chat/${r.roomId}`} className="chat-btn">
-                      Chat
+                      Start Chat
                     </Link>
                     <Link to={`/visit/${r.roomId}`} className="visit-btn">
                       Visit Property
