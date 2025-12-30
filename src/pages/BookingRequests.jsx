@@ -33,16 +33,26 @@ const BookingRequests = () => {
 
       for (let d of snap.docs) {
         const data = d.data();
+
         const roomSnap = await getDoc(doc(db, "rooms", data.roomId));
         const roomData = roomSnap.data();
+
+        const seekerSnap = await getDoc(doc(db, "users", data.seekerId));
+        const seekerData = seekerSnap.data();
 
         list.push({
           id: d.id,
           ...data,
+
           roomTitle: roomData?.title || "Room",
           roomImage: roomData?.image || "",
           roomLocation: roomData?.location || "",
           roomRent: roomData?.rent || "",
+
+          seekerName: seekerData?.name || "Seeker",
+          seekerPhoto:
+            seekerData?.profileImage ||
+            "https://www.w3schools.com/howto/img_avatar.png",
         });
       }
 
@@ -104,6 +114,7 @@ const BookingRequests = () => {
         <div className="booking-list">
           {requests.map((r) => (
             <div className="booking-card" key={r.id}>
+              {/* ROOM IMAGE */}
               {r.roomImage && (
                 <img
                   src={r.roomImage}
@@ -115,31 +126,24 @@ const BookingRequests = () => {
               <div className="booking-info">
                 <h4>{r.roomTitle}</h4>
 
-                {r.roomLocation && (
-                  <p className="location">{r.roomLocation}</p>
-                )}
+                <p className="location">{r.roomLocation}</p>
+                <p className="rent">₹{r.roomRent} / month</p>
 
-                {r.roomRent && (
-                  <p className="rent">₹{r.roomRent} / month</p>
-                )}
+                {/* SEEKER INFO */}
+                <div className="seeker">
+                  <img src={r.seekerPhoto} alt={r.seekerName} />
+                  <span>{r.seekerName}</span>
+                </div>
 
-                <span className={`status ${r.status}`}>
-                  {r.status}
-                </span>
+                <span className={`status ${r.status}`}>{r.status}</span>
               </div>
 
               {r.status === "pending" && (
                 <div className="actions">
-                  <button
-                    className="accept"
-                    onClick={() => accept(r)}
-                  >
+                  <button className="accept" onClick={() => accept(r)}>
                     Accept
                   </button>
-                  <button
-                    className="reject"
-                    onClick={() => reject(r)}
-                  >
+                  <button className="reject" onClick={() => reject(r)}>
                     Reject
                   </button>
                 </div>

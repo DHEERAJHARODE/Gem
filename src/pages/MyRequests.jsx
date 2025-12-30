@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import "./MyRequests.css";
 
 const MyRequests = () => {
@@ -85,6 +86,18 @@ const MyRequests = () => {
                 <span className={`status ${r.status}`}>
                   {r.status}
                 </span>
+
+                {/* ✅ IF ACCEPTED → SHOW CHAT & VISIT BUTTONS */}
+                {r.status === "accepted" && (
+                  <div className="request-actions">
+                    <Link to={`/chat/${r.roomId}`} className="chat-btn">
+                      Chat
+                    </Link>
+                    <Link to={`/visit/${r.roomId}`} className="visit-btn">
+                      Visit Property
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           ))}
