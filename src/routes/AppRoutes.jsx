@@ -11,11 +11,13 @@ import RoomDetails from "../pages/RoomDetails";
 import BookingRequests from "../pages/BookingRequests";
 import ChooseRole from "../pages/ChooseRole";
 import ProtectedRoute from "./ProtectedRoute";
-import PublicRoute from "./PublicRoute"; // optional: redirect logged-in users
+import PublicRoute from "./PublicRoute";
 import Profile from "../pages/Profile";
 import MyRequests from "../pages/MyRequests";
 import ForgotPassword from "../pages/ForgotPassword";
 import VerifyEmail from "../pages/VerifyEmail";
+import Chat from "../pages/Chat";
+import Inbox from "../pages/Inbox"; // New Inbox Page import
 
 const AppRoutes = () => {
   return (
@@ -38,6 +40,8 @@ const AppRoutes = () => {
           </PublicRoute>
         }
       />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
 
       {/* Protected Routes */}
       <Route
@@ -80,15 +84,45 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-requests"
+        element={
+          <ProtectedRoute>
+            <MyRequests />
+          </ProtectedRoute>
+        }
+      />
+      
+      {/* Messaging Routes */}
+      <Route
+        path="/inbox"
+        element={
+          <ProtectedRoute>
+            <Inbox />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/chat/:roomId"
+        element={
+          <ProtectedRoute>
+            <Chat />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Public accessible rooms */}
+      {/* General Routes */}
       <Route path="/rooms" element={<RoomsList />} />
       <Route path="/room/:id" element={<RoomDetails />} />
       <Route path="/choose-role" element={<ChooseRole />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/my-requests" element={<MyRequests />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/verify-email" element={<VerifyEmail/>} />
     </Routes>
   );
 };

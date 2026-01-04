@@ -272,3 +272,22 @@
     opacity: 1;
   }
 }
+.nav-icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+}
+
+.msg-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: #ff3b30;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  border: 2px solid white;
+}

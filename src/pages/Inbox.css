@@ -1,0 +1,93 @@
+.inbox-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.inbox-header {
+  border-bottom: 1px solid #dbdbdb;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+}
+
+.chat-card {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chat-card:hover {
+  background: #fafafa;
+}
+
+.chat-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 1px solid #dbdbdb;
+}
+
+.chat-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-row h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.room-tag {
+  font-size: 11px;
+  background: #efefef;
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: #8e8e8e;
+}
+
+.last-msg {
+  margin: 3px 0 0;
+  font-size: 14px;
+  color: #8e8e8e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+/* Navbar Badge */
+.msg-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: #ff3b30;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Inbox Unread Badge */
+.unread-msg-count {
+  background-color: #0095f6;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}

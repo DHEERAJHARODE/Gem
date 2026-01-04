@@ -24,7 +24,7 @@ const Login = () => {
       if (permission !== "granted") return;
 
       const token = await getToken(messaging, {
-        vapidKey: "YOUR_VAPID_KEY",
+        vapidKey: "6GPW7QAQmoesUfwzwe4Lq_pnd5W8P65uc3O_QVdQwbI",
       });
 
       if (!token) return;
