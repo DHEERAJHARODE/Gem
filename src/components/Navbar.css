@@ -1,235 +1,181 @@
-/* ================= NAVBAR ================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 5%;
-  background: #ffffff;
-  border-bottom: 1px solid #eee;
+  padding: 0 6%;
+  height: 75px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .logo {
-  font-size: 22px;
   font-weight: 800;
   color: #4f46e5;
+  font-size: 24px;
   cursor: pointer;
 }
 
-/* Right Section */
 .nav-right {
   display: flex;
   align-items: center;
+  gap: 35px;
+}
+
+.nav-links.desktop {
+  display: flex;
   gap: 25px;
 }
 
-.desktop {
-  display: flex;
-}
-
-/* ================= LINKS ================= */
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
+.nav-links.desktop a {
   text-decoration: none;
   color: #4b5563;
   font-weight: 500;
-  font-size: 15px;
 }
 
-/* ================= ICONS ================= */
-.nav-icons {
+.nav-actions.desktop {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
 }
 
-.nav-icon-wrapper {
+.auth-btns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.reg-btn {
+  background: #4f46e5;
+  color: #fff !important;
+  padding: 9px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.profile-dropdown-container {
   position: relative;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  color: #374151;
 }
 
-.icon-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
+/* Styling for notification badge on text links */
+.nav-badge-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.link-badge {
   background: #ef4444;
-  color: #fff;
+  color: white;
   font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 50%;
-  border: 2px solid #fff;
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 10px;
+  margin-left: 5px; /* Text ke aage chhota sa badge */
+  display: inline-block;
 }
 
-/* ================= AVATAR ================= */
+/* Rest of your existing CSS remains the same... */
+
 .nav-avatar {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 2px solid #4f46e5;
-  cursor: pointer;
   object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #e5e7eb;
 }
 
-/* ================= NOTIFICATION DROPDOWN ================= */
-.notification-container {
-  position: relative;
-}
-
-.notif-dropdown {
+.profile-menu {
   position: absolute;
-  top: 40px;
+  top: 55px;
   right: 0;
-  width: 300px;
-  background: #ffffff;
+  width: 220px;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  z-index: 3000;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 10px 0;
+  z-index: 2000;
 }
 
-.notif-item {
-  padding: 12px 15px;
+.menu-header {
+  padding: 10px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-name { font-weight: 700; font-size: 14px; margin: 0; }
+.user-role { font-size: 11px; color: #6b7280; margin: 0; }
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
   font-size: 14px;
-  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
   cursor: pointer;
-  color: #111827;
 }
 
-.notif-item.unread {
-  background: #f5f7ff;
+.menu-item:hover { background: #f9fafb; color: #4f46e5; }
+.logout-text { color: #ef4444 !important; }
+
+/* ================= SIDEBAR (RIGHT) ================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; 
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  padding: 20px;
+  transition: right 0.4s ease;
+  z-index: 2001;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.1);
 }
 
-.notif-item:hover {
-  background: #eef2ff;
-}
+.sidebar.open { right: 0; }
 
-/* ================= MOBILE BUTTON ================= */
-.mobile-menu-btn {
-  display: none;
-  cursor: pointer;
-  color: #374151;
-}
-
-/* ================= OVERLAY ================= */
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
   display: none;
   z-index: 2000;
 }
 
-.sidebar-overlay.active {
-  display: block;
-}
+.sidebar-overlay.active { display: block; }
 
-/* ================= SIDEBAR ================= */
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: -300px;
-  width: 280px;
-  height: 100vh;
-  background: #ffffff;
-  z-index: 2001;
-  padding: 20px;
-  transition: right 0.35s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar.open {
-  right: 0;
-}
-
-/* Sidebar Header */
 .sidebar-header {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.close-btn {
-  cursor: pointer;
-  color: #374151;
-}
-
-/* ================= SIDEBAR USER ================= */
-.sidebar-user {
+.sidebar-profile {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
   margin-bottom: 20px;
-  cursor: pointer;
 }
 
-.sidebar-user img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #4f46e5;
-  object-fit: cover;
-}
+.sidebar-profile img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #4f46e5; }
 
-.sidebar-user p {
-  font-size: 16px;
-  font-weight: 600;
-  color: #111827;
-  margin: 0;
-}
+.sidebar-links { display: flex; flex-direction: column; gap: 20px; }
+.sidebar-links a { text-decoration: none; color: #374151; font-size: 17px; font-weight: 500; }
 
-/* ================= SIDEBAR LINKS ================= */
-.sidebar-links {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.sidebar-links a {
-  text-decoration: none;
-  color: #374151;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.sidebar-links a:hover {
-  color: #4f46e5;
-}
-
-/* ================= LOGOUT ================= */
 .sidebar-logout {
-  margin-top: 25px;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: #fee2e2;
-  color: #ef4444;
-  font-weight: 600;
-  cursor: pointer;
+  background: #fee2e2; color: #ef4444; border: none;
+  padding: 12px; border-radius: 10px; font-weight: 700; margin-top: 20px;
 }
 
-.sidebar-logout:hover {
-  background: #fecaca;
-}
+.mobile-menu-btn { display: none; cursor: pointer; }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-  .desktop {
-    display: none;
-  }
-
-  .mobile-menu-btn {
-    display: block;
-  }
+@media (max-width: 1024px) {
+  .desktop { display: none !important; }
+  .mobile-menu-btn { display: block; }
 }
