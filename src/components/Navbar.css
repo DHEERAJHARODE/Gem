@@ -1,10 +1,10 @@
-/* Navbar */
+/* ================= NAVBAR ================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 5%;
-  background: #fff;
+  background: #ffffff;
   border-bottom: 1px solid #eee;
   position: sticky;
   top: 0;
@@ -18,6 +18,7 @@
   cursor: pointer;
 }
 
+/* Right Section */
 .nav-right {
   display: flex;
   align-items: center;
@@ -28,8 +29,9 @@
   display: flex;
 }
 
-/* Links */
+/* ================= LINKS ================= */
 .nav-links {
+  display: flex;
   gap: 20px;
 }
 
@@ -37,10 +39,12 @@
   text-decoration: none;
   color: #4b5563;
   font-weight: 500;
+  font-size: 15px;
 }
 
-/* Icons */
+/* ================= ICONS ================= */
 .nav-icons {
+  display: flex;
   align-items: center;
   gap: 18px;
 }
@@ -48,6 +52,9 @@
 .nav-icon-wrapper {
   position: relative;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #374151;
 }
 
 .icon-badge {
@@ -62,25 +69,31 @@
   border: 2px solid #fff;
 }
 
-/* Avatar */
+/* ================= AVATAR ================= */
 .nav-avatar {
   width: 35px;
   height: 35px;
   border-radius: 50%;
   border: 2px solid #4f46e5;
   cursor: pointer;
+  object-fit: cover;
 }
 
-/* Notification Dropdown */
+/* ================= NOTIFICATION DROPDOWN ================= */
+.notification-container {
+  position: relative;
+}
+
 .notif-dropdown {
   position: absolute;
   top: 40px;
   right: 0;
   width: 300px;
-  background: #fff;
+  background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  z-index: 3000;
 }
 
 .notif-item {
@@ -88,19 +101,25 @@
   font-size: 14px;
   border-bottom: 1px solid #f3f4f6;
   cursor: pointer;
+  color: #111827;
 }
 
 .notif-item.unread {
   background: #f5f7ff;
 }
 
-/* Mobile */
+.notif-item:hover {
+  background: #eef2ff;
+}
+
+/* ================= MOBILE BUTTON ================= */
 .mobile-menu-btn {
   display: none;
   cursor: pointer;
+  color: #374151;
 }
 
-/* Overlay */
+/* ================= OVERLAY ================= */
 .sidebar-overlay {
   position: fixed;
   inset: 0;
@@ -113,17 +132,17 @@
   display: block;
 }
 
-/* Sidebar */
+/* ================= SIDEBAR ================= */
 .sidebar {
   position: fixed;
   top: 0;
   right: -300px;
   width: 280px;
   height: 100vh;
-  background: #fff;
+  background: #ffffff;
   z-index: 2001;
   padding: 20px;
-  transition: 0.4s ease;
+  transition: right 0.35s ease;
   display: flex;
   flex-direction: column;
 }
@@ -132,6 +151,7 @@
   right: 0;
 }
 
+/* Sidebar Header */
 .sidebar-header {
   display: flex;
   justify-content: flex-end;
@@ -140,11 +160,13 @@
 
 .close-btn {
   cursor: pointer;
+  color: #374151;
 }
 
-/* Sidebar User */
+/* ================= SIDEBAR USER ================= */
 .sidebar-user {
   display: flex;
+  align-items: center;
   gap: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #eee;
@@ -157,9 +179,17 @@
   height: 50px;
   border-radius: 50%;
   border: 2px solid #4f46e5;
+  object-fit: cover;
 }
 
-/* Sidebar Links */
+.sidebar-user p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+/* ================= SIDEBAR LINKS ================= */
 .sidebar-links {
   display: flex;
   flex-direction: column;
@@ -169,11 +199,17 @@
 .sidebar-links a {
   text-decoration: none;
   color: #374151;
+  font-size: 16px;
   font-weight: 500;
 }
 
+.sidebar-links a:hover {
+  color: #4f46e5;
+}
+
+/* ================= LOGOUT ================= */
 .sidebar-logout {
-  margin-top: 20px;
+  margin-top: 25px;
   padding: 12px;
   border-radius: 8px;
   border: none;
@@ -183,11 +219,16 @@
   cursor: pointer;
 }
 
-/* Responsive */
+.sidebar-logout:hover {
+  background: #fecaca;
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .desktop {
     display: none;
   }
+
   .mobile-menu-btn {
     display: block;
   }

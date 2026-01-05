@@ -194,7 +194,6 @@ const Navbar = () => {
             />
             <div>
               <p>{profile?.name || "User"}</p>
-              <span>{user.email}</span>
             </div>
           </div>
         )}
