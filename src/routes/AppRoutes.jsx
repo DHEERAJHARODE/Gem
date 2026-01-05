@@ -17,12 +17,15 @@ import MyRequests from "../pages/MyRequests";
 import ForgotPassword from "../pages/ForgotPassword";
 import VerifyEmail from "../pages/VerifyEmail";
 import Chat from "../pages/Chat";
-import Inbox from "../pages/Inbox"; // New Inbox Page import
+import Inbox from "../pages/Inbox";
+import PrivacyPolicy from "../pages/PrivacyPolicy"; // Updated Import
+import ContactUs from "../pages/ContactUs"; // Updated Import
+import Terms from "../pages/Terms"; // New Import
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public Routes */}
+      {/* ================= PUBLIC ROUTES ================= */}
       <Route path="/" element={<Home />} />
       <Route
         path="/login"
@@ -43,7 +46,7 @@ const AppRoutes = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
 
-      {/* Protected Routes */}
+      {/* ================= PROTECTED ROUTES ================= */}
       <Route
         path="/dashboard"
         element={
@@ -101,7 +104,7 @@ const AppRoutes = () => {
         }
       />
       
-      {/* Messaging Routes */}
+      {/* MESSAGING SYSTEM */}
       <Route
         path="/inbox"
         element={
@@ -119,10 +122,18 @@ const AppRoutes = () => {
         }
       />
 
-      {/* General Routes */}
+      {/* ================= GENERAL & LEGAL ROUTES ================= */}
       <Route path="/rooms" element={<RoomsList />} />
       <Route path="/room/:id" element={<RoomDetails />} />
       <Route path="/choose-role" element={<ChooseRole />} />
+      
+      {/* Added/Updated Legal & Support Pages */}
+      <Route path="/contact" element={<ContactUs />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<Terms />} />
+
+      {/* 404 Fallback - Redirect to Home or a Custom NotFound Page */}
+      <Route path="*" element={<Home />} /> 
     </Routes>
   );
 };
