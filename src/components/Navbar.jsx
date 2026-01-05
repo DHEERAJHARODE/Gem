@@ -8,11 +8,13 @@ import {
   onSnapshot,
   orderBy,
   doc,
-  updateDoc,
   getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { FiMenu, FiX, FiMessageSquare, FiUser, FiMessageCircle, FiPhoneCall, FiHelpCircle, FiLogOut } from "react-icons/fi";
+import { 
+  FiMenu, FiX, FiMessageSquare, FiUser, FiMessageCircle, 
+  FiPhoneCall, FiHelpCircle, FiLogOut, FiHome, FiGrid, FiMail 
+} from "react-icons/fi";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -21,12 +23,11 @@ const Navbar = () => {
 
   const [profile, setProfile] = useState(null);
   const [unreadUsersCount, setUnreadUsersCount] = useState(0);
-  const [notifications, setNotifications] = useState([]); // Notifications state wapas add ki
+  const [notifications, setNotifications] = useState([]); 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  /* ================= FETCH PROFILE ================= */
   useEffect(() => {
     if (!user?.uid) return;
     const fetchProfile = async () => {
@@ -36,7 +37,6 @@ const Navbar = () => {
     fetchProfile();
   }, [user?.uid]);
 
-  /* ================= MESSAGES LISTENER ================= */
   useEffect(() => {
     if (!user?.uid) return;
     const q = query(collection(db, "messages"), where("receiverId", "==", user.uid), where("seen", "==", false));
@@ -47,7 +47,6 @@ const Navbar = () => {
     return () => unsub();
   }, [user?.uid]);
 
-  /* ================= NOTIFICATIONS LISTENER ================= */
   useEffect(() => {
     if (!user?.uid) return;
     const q = query(
@@ -63,7 +62,6 @@ const Navbar = () => {
 
   const unreadNotifCount = notifications.filter((n) => !n.read).length;
 
-  // Dropdown close logic
   useEffect(() => {
     const close = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setShowProfileMenu(false);
@@ -75,36 +73,35 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar">
-        <h3 className="logo" onClick={() => navigate("/")}>Stay Safe</h3>
+        <div className="nav-container">
+          <h3 className="logo" onClick={() => navigate("/")}>Stay Safe</h3>
 
-        <div className="nav-right">
+          {/* Desktop Middle Links */}
           <div className="nav-links desktop">
-            <Link to="/">Home</Link>
+            <Link to="/" className="hover-underline">Home</Link>
             {user && (
               <>
-                <Link to="/rooms">Rooms</Link>
-                
-                {/* Notification count applied to these specific links */}
+                <Link to="/rooms" className="hover-underline">Rooms</Link>
                 {profile?.role === "owner" ? (
-                  <Link to="/booking-requests" className="nav-badge-link">
-                    Booking Requests
+                  <Link to="/booking-requests" className="nav-badge-link hover-underline">
+                    Requests
                     {unreadNotifCount > 0 && <span className="link-badge">{unreadNotifCount}</span>}
                   </Link>
                 ) : (
-                  <Link to="/my-requests" className="nav-badge-link">
+                  <Link to="/my-requests" className="nav-badge-link hover-underline">
                     My Requests
                     {unreadNotifCount > 0 && <span className="link-badge">{unreadNotifCount}</span>}
                   </Link>
                 )}
-                
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard" className="hover-underline">Dashboard</Link>
               </>
             )}
           </div>
 
-          <div className="nav-actions desktop">
+          {/* Right Side Actions */}
+          <div className="nav-actions">
             {user ? (
-              <>
+              <div className="desktop-actions desktop">
                 <Link to="/inbox" className="nav-icon-link">
                   <FiMessageSquare size={22} />
                   {unreadUsersCount > 0 && <span className="icon-badge">{unreadUsersCount}</span>}
@@ -127,59 +124,70 @@ const Navbar = () => {
                       <div className="menu-item" onClick={() => {navigate("/feedback"); setShowProfileMenu(false);}}><FiMessageCircle /> Feedback</div>
                       <div className="menu-item" onClick={() => {navigate("/contact"); setShowProfileMenu(false);}}><FiPhoneCall /> Contact</div>
                       <div className="menu-item" onClick={() => {navigate("/help"); setShowProfileMenu(false);}}><FiHelpCircle /> Help</div>
-                      <hr />
+                      <hr className="menu-divider" />
                       <div className="menu-item logout-text" onClick={logout}><FiLogOut /> Logout</div>
                     </div>
                   )}
                 </div>
-              </>
+              </div>
             ) : (
-              <div className="auth-btns">
+              <div className="auth-btns desktop">
                 <Link to="/login" className="login-link">Login</Link>
                 <Link to="/register" className="reg-btn">Register</Link>
               </div>
             )}
-          </div>
 
-          <div className="mobile-menu-btn" onClick={() => setMobileOpen(true)}>
-            <FiMenu size={28} />
+            {/* Mobile Menu Toggle */}
+            <div className="mobile-menu-btn" onClick={() => setMobileOpen(true)}>
+              <FiMenu size={26} />
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* ========== SIDEBAR (RIGHT SIDE) ========== */}
+      {/* ========== SIDEBAR (MOBILE) ========== */}
       <div className={`sidebar-overlay ${mobileOpen ? "active" : ""}`} onClick={() => setMobileOpen(false)} />
       
       <div className={`sidebar ${mobileOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <FiX size={28} className="close-btn" onClick={() => setMobileOpen(false)} style={{marginLeft: 'auto'}} />
+          <FiX size={28} className="close-btn" onClick={() => setMobileOpen(false)} />
         </div>
+
         {user && (
           <div className="sidebar-profile" onClick={() => {setMobileOpen(false); navigate("/profile");}}>
             <img src={profile?.profileImage || "https://www.w3schools.com/howto/img_avatar.png"} alt="profile" />
-            <p>{profile?.name || "User"}</p>
+            <div className="sidebar-user-info">
+               <p className="sidebar-user-name">{profile?.name || "User"}</p>
+               <span className="sidebar-user-role">{profile?.role}</span>
+            </div>
           </div>
         )}
+
         <div className="sidebar-links">
-          <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
+          <Link to="/" onClick={() => setMobileOpen(false)}><FiHome /> Home</Link>
           {user ? (
             <>
-              <Link to="/rooms" onClick={() => setMobileOpen(false)}>Rooms</Link>
+              <Link to="/rooms" onClick={() => setMobileOpen(false)}><FiGrid /> Rooms</Link>
               {profile?.role === "owner" ? (
                 <Link to="/booking-requests" onClick={() => setMobileOpen(false)}>
-                  Booking Requests {unreadNotifCount > 0 && `(${unreadNotifCount})`}
+                  <FiMail /> Requests {unreadNotifCount > 0 && <span className="side-badge">{unreadNotifCount}</span>}
                 </Link>
               ) : (
                 <Link to="/my-requests" onClick={() => setMobileOpen(false)}>
-                  My Requests {unreadNotifCount > 0 && `(${unreadNotifCount})`}
+                  <FiMail /> My Requests {unreadNotifCount > 0 && <span className="side-badge">{unreadNotifCount}</span>}
                 </Link>
               )}
-              <Link to="/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</Link>
-              <Link to="/inbox" onClick={() => setMobileOpen(false)}>Messages ({unreadUsersCount})</Link>
-              <button className="sidebar-logout" onClick={logout}>Logout</button>
+              <Link to="/inbox" onClick={() => setMobileOpen(false)}>
+                <FiMessageSquare /> Messages {unreadUsersCount > 0 && <span className="side-badge">{unreadUsersCount}</span>}
+              </Link>
+              <Link to="/profile" onClick={() => setMobileOpen(false)}><FiUser /> Profile</Link>
+              <button className="sidebar-logout" onClick={logout}><FiLogOut /> Logout</button>
             </>
           ) : (
-            <Link to="/login" onClick={() => setMobileOpen(false)}>Login</Link>
+            <div className="sidebar-auth-grid">
+              <Link to="/login" className="side-login" onClick={() => setMobileOpen(false)}>Login</Link>
+              <Link to="/register" className="side-reg" onClick={() => setMobileOpen(false)}>Register</Link>
+            </div>
           )}
         </div>
       </div>
