@@ -157,8 +157,8 @@ const Navbar = () => {
           <div className="sidebar-profile" onClick={() => {setMobileOpen(false); navigate("/profile");}}>
             <img src={profile?.profileImage || "https://www.w3schools.com/howto/img_avatar.png"} alt="profile" />
             <div className="sidebar-user-info">
-               <p className="sidebar-user-name">{profile?.name || "User"}</p>
-               <span className="sidebar-user-role">{profile?.role}</span>
+              <p className="sidebar-user-name">{profile?.name || "User"}</p>
+              <span className="sidebar-user-role">{profile?.role}</span>
             </div>
           </div>
         )}
@@ -180,7 +180,7 @@ const Navbar = () => {
               <Link to="/inbox" onClick={() => setMobileOpen(false)}>
                 <FiMessageSquare /> Messages {unreadUsersCount > 0 && <span className="side-badge">{unreadUsersCount}</span>}
               </Link>
-              <Link to="/profile" onClick={() => setMobileOpen(false)}><FiUser /> Profile</Link>
+              <Link to="/dashboard" onClick={() => setMobileOpen(false)}><FiUser /> Profile</Link>
               <button className="sidebar-logout" onClick={logout}><FiLogOut /> Logout</button>
             </>
           ) : (
