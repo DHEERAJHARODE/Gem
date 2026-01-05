@@ -74,7 +74,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nav-container">
-          <h3 className="logo" onClick={() => navigate("/")}>Stay Safe</h3>
+          <h3 className="logo" onClick={() => navigate("/")}>Stay Safe<span className="logo-dot">.</span></h3>
 
           {/* Desktop Middle Links */}
           <div className="nav-links desktop">

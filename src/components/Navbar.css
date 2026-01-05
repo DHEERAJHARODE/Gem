@@ -21,13 +21,24 @@
   align-items: center;
 }
 
+/* Logo Styling */
 .logo {
   font-weight: 800;
-  color: #4f46e5;
+  color: #1e293b; /* Isse dark navy/slate rakhein taaki dot highlight ho */
   font-size: 26px;
   cursor: pointer;
   letter-spacing: -0.8px;
-  flex: 1; /* Pushes links to center */
+  flex: 1;
+  display: flex;
+  align-items: baseline; /* Taaki dot text ke base par rahe */
+}
+
+/* New Dot Styling */
+.logo-dot {
+  color: #4f46e5; /* Wahi primary purple/blue color */
+  font-size: 32px; /* Text se thoda bada taaki prominent dikhe */
+  line-height: 0;
+  margin-left: 2px;
 }
 
 /* ================= DESKTOP LINKS (CENTER) ================= */
