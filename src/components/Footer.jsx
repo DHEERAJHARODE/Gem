@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import { 
   FiInstagram, FiTwitter, FiFacebook, FiMail, 
-  FiPhone, FiMapPin, FiSend, FiShield, FiCheckCircle
+  FiPhone, FiSend, FiShield, FiCheckCircle
 } from "react-icons/fi";
 import "./Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      {/* Top Trust Strip (Visible in both) */}
-      <div className="footer-trust-strip">
-        <div className="trust-item"><FiShield /> 100% Verified</div>
-        <div className="trust-item"><FiCheckCircle /> Secure Payments</div>
-        <div className="trust-item"><FiShield /> Data Privacy</div>
+      {/* Desktop Only Trust Strip */}
+      <div className="footer-trust-strip desktop-only">
+        <div className="trust-item"><FiShield /> 100% Verified Listings</div>
+        <div className="trust-item"><FiCheckCircle /> Secure Communication</div>
+        <div className="trust-item"><FiShield /> Data Privacy Guaranteed</div>
       </div>
 
       <div className="footer-container">
@@ -20,8 +20,7 @@ const Footer = () => {
         <div className="footer-col brand">
           <h2 className="footer-logo">Stay Safe<span>.</span></h2>
           <p className="footer-desc">
-            India's leading platform for safe and affordable room rentals. 
-            Connecting thousands of students and professionals daily.
+            India's most trusted platform for safe and affordable room rentals. 
           </p>
           <div className="footer-socials">
             <a href="#" className="social-icon"><FiInstagram /></a>
@@ -38,28 +37,27 @@ const Footer = () => {
               <Link to="/rooms">Browse Rooms</Link>
               <Link to="/register">List Property</Link>
               <Link to="/contact">About Us</Link>
-              <Link to="/help">Safety Tips</Link>
             </nav>
           </div>
 
           <div className="footer-col">
             <h4>Support</h4>
             <nav className="footer-nav">
-              <Link to="/profile">My Profile</Link>
-              <Link to="/feedback">Feedback</Link>
               <Link to="/help">Help Center</Link>
-              <Link to="/terms">Terms of Service</Link>
+              <Link to="/terms">Terms</Link>
+              <Link to="/privacy">Privacy</Link>
             </nav>
           </div>
         </div>
 
-        {/* Contact & Newsletter */}
+        {/* Contact & Newsletter (Newsletter hidden on mobile for minimalism) */}
         <div className="footer-col contact">
-          <h4>Newsletter</h4>
-          <p className="newsletter-text">Join 5000+ users getting weekly room updates.</p>
-          <div className="newsletter-box">
-            <input type="email" placeholder="Enter your email" />
-            <button><FiSend /></button>
+          <div className="newsletter-section desktop-only">
+            <h4>Newsletter</h4>
+            <div className="newsletter-box">
+              <input type="email" placeholder="Your email" />
+              <button><FiSend /></button>
+            </div>
           </div>
           <div className="contact-details">
             <div className="contact-row"><FiMail /> support@staysafe.com</div>
@@ -70,8 +68,8 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <div className="footer-bottom-inner">
-          <p>© 2026 Stay Safe Inc. All Rights Reserved.</p>
-          <div className="legal-links">
+          <p>© 2026 Stay Safe Inc.</p>
+          <div className="legal-links desktop-only">
             <Link to="/privacy">Privacy</Link>
             <span className="dot"></span>
             <Link to="/terms">Terms</Link>
