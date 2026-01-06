@@ -439,3 +439,61 @@ html, body {
 }
 
 body.menu-open { overflow: hidden; }
+
+/* ==========================================================================
+   10. MOBILE AUTH BUTTONS (SIDEBAR) - Updated
+   ========================================================================== */
+.sidebar-auth-content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.auth-msg {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.sidebar-auth-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Buttons ke beech ka gap */
+}
+
+.side-login {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid var(--border-medium); /* Desktop style login */
+  transition: var(--transition-smooth);
+  display: block;
+}
+
+.side-reg {
+  text-decoration: none;
+  background: var(--primary); /* Desktop style blue color */
+  color: #fff !important;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  transition: var(--transition-smooth);
+  display: block;
+}
+
+/* Hover/Active effects for mobile touch */
+.side-login:active {
+  background: var(--bg-subtle);
+}
+
+.side-reg:active {
+  background: var(--primary-hover);
+  transform: scale(0.98);
+}
