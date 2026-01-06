@@ -23,6 +23,7 @@ import {
   FiHome,
   FiGrid,
   FiMail,
+  FiPlusSquare, // Add Room ke liye icon
 } from "react-icons/fi";
 import "./Navbar.css";
 
@@ -102,22 +103,16 @@ const Navbar = () => {
                 {profile?.role === "owner" ? (
                   <NavLink to="/booking-requests" className="hover-underline">
                     Requests
-                    {unreadNotifCount > 0 && (
-                      <span className="link-badge">{unreadNotifCount}</span>
-                    )}
+                    {unreadNotifCount > 0 && <span className="link-badge">{unreadNotifCount}</span>}
                   </NavLink>
                 ) : (
                   <NavLink to="/my-requests" className="hover-underline">
                     My Requests
-                    {unreadNotifCount > 0 && (
-                      <span className="link-badge">{unreadNotifCount}</span>
-                    )}
+                    {unreadNotifCount > 0 && <span className="link-badge">{unreadNotifCount}</span>}
                   </NavLink>
                 )}
 
-                <NavLink to="/dashboard" className="hover-underline">
-                  Dashboard
-                </NavLink>
+                <NavLink to="/dashboard" className="hover-underline">Dashboard</NavLink>
               </>
             )}
           </div>
@@ -127,9 +122,7 @@ const Navbar = () => {
               <div className="desktop-actions desktop">
                 <NavLink to="/inbox" className="nav-icon-link">
                   <FiMessageSquare size={22} />
-                  {unreadUsersCount > 0 && (
-                    <span className="icon-badge">{unreadUsersCount}</span>
-                  )}
+                  {unreadUsersCount > 0 && <span className="icon-badge">{unreadUsersCount}</span>}
                 </NavLink>
 
                 <div ref={dropdownRef} className="avatar-wrapper">
@@ -139,7 +132,6 @@ const Navbar = () => {
                     className="nav-avatar"
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
                   />
-
                   {showProfileMenu && (
                     <div className="profile-menu">
                       <div className="menu-header">
@@ -180,6 +172,7 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* Mobile Sidebar */}
       <div className={`sidebar-overlay ${mobileOpen ? "active" : ""}`} onClick={() => setMobileOpen(false)} />
 
       <div className={`sidebar ${mobileOpen ? "open" : ""}`}>
@@ -200,11 +193,18 @@ const Navbar = () => {
             <div className="sidebar-links">
               <NavLink to="/" onClick={() => setMobileOpen(false)} end><FiHome /> Home</NavLink>
               <NavLink to="/rooms" onClick={() => setMobileOpen(false)}><FiGrid /> Rooms</NavLink>
+              
+              <NavLink to="/dashboard" onClick={() => setMobileOpen(false)}><FiGrid /> Dashboard</NavLink>
+
               {profile?.role === "owner" ? (
-                <NavLink to="/booking-requests" onClick={() => setMobileOpen(false)}><FiMail /> Requests</NavLink>
+                <>
+                  <NavLink to="/add-room" onClick={() => setMobileOpen(false)}><FiPlusSquare /> Add Room</NavLink>
+                  <NavLink to="/booking-requests" onClick={() => setMobileOpen(false)}><FiMail /> Requests</NavLink>
+                </>
               ) : (
                 <NavLink to="/my-requests" onClick={() => setMobileOpen(false)}><FiMail /> My Requests</NavLink>
               )}
+              
               <NavLink to="/inbox" onClick={() => setMobileOpen(false)}><FiMessageSquare /> Messages</NavLink>
               <button className="sidebar-logout" onClick={logout}><FiLogOut /> Logout</button>
             </div>
