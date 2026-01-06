@@ -124,7 +124,7 @@
   margin-left: 6px;
 }
 
-/* ================= PROFILE DROPDOWN ================= */
+/* ================= PROFILE ================= */
 .nav-avatar {
   width: 42px;
   height: 42px;
@@ -165,7 +165,6 @@
 .user-role {
   font-size: 12px;
   color: #64748b;
-  text-transform: capitalize;
 }
 
 .menu-item {
@@ -193,10 +192,10 @@
   font-weight: 600;
 }
 
-/* ================= AUTH BUTTONS ================= */
+/* ================= AUTH BUTTONS (FIXED) ================= */
 .auth-btns {
   display: flex;
-  align-items: center;
+  align-items: center;      /* 🔥 alignment fix */
   gap: 16px;
 }
 
@@ -209,6 +208,7 @@
   text-decoration: none;
   color: #475569;
   font-weight: 600;
+  font-size: 15px;
 }
 
 .login-link:hover {
@@ -232,11 +232,10 @@
   background: #4338ca;
 }
 
-/* ================= MOBILE MENU BUTTON ================= */
+/* ================= MOBILE MENU ================= */
 .mobile-menu-btn {
   display: none;
   cursor: pointer;
-  color: #1e293b;
 }
 
 /* ================= SIDEBAR ================= */
@@ -248,22 +247,18 @@
   height: 100vh;
   background: #fff;
   padding: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s ease;
   z-index: 2001;
-  display: flex;
-  flex-direction: column;
 }
 
 .sidebar.open {
   right: 0;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
 .sidebar-overlay {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(4px);
   display: none;
   z-index: 2000;
 }
@@ -282,43 +277,21 @@
   color: #94a3b8;
 }
 
-/* ===== SIDEBAR PROFILE (FIXED) ===== */
 .sidebar-profile {
   display: flex;
   gap: 15px;
   padding: 18px;
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  background: #f8fafc;
   border-radius: 16px;
   margin: 20px 0;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.sidebar-profile:hover {
-  background: #eef2ff;
 }
 
 .sidebar-profile img {
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  object-fit: cover;
 }
 
-.sidebar-user-name {
-  font-weight: 700;
-  font-size: 16px;
-  margin: 0;
-  color: #1e293b;
-}
-
-.sidebar-user-role {
-  font-size: 12px;
-  color: #64748b;
-  text-transform: capitalize;
-}
-
-/* ================= SIDEBAR LINKS ================= */
 .sidebar-links {
   display: flex;
   flex-direction: column;
@@ -332,7 +305,6 @@
   padding: 14px 16px;
   border-radius: 12px;
   display: flex;
-  align-items: center;
   gap: 14px;
 }
 
@@ -341,11 +313,9 @@
   color: #4f46e5;
 }
 
-/* ================= SIDEBAR AUTH ================= */
 .sidebar-auth-grid {
   display: grid;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .side-login,
@@ -359,7 +329,6 @@
 
 .side-login {
   border: 1px solid #e2e8f0;
-  color: #475569;
 }
 
 .side-reg {
@@ -367,7 +336,6 @@
   color: #fff;
 }
 
-/* ================= LOGOUT ================= */
 .sidebar-logout {
   margin-top: auto;
   background: #fff1f2;
@@ -377,10 +345,6 @@
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -392,31 +356,4 @@
   .mobile-menu-btn {
     display: block;
   }
-}
-/* Desktop Active Hover Effect */
-.nav-links.desktop a.active {
-  color: #4f46e5 !important;
-}
-
-.nav-links.desktop a.active::after {
-  width: 100% !important;
-  background: #4f46e5;
-}
-
-/* Sidebar Active Styling */
-.sidebar-links a.active {
-  background: #eef2ff;
-  color: #4f46e5 !important;
-  border-left: 4px solid #4f46e5;
-  border-radius: 0 12px 12px 0;
-}
-
-.sidebar-links a.active svg {
-  color: #4f46e5;
-}
-
-/* Sidebar Hover (Non-active) */
-.sidebar-links a:hover:not(.active) {
-  background: #f8fafc;
-  padding-left: 20px;
 }

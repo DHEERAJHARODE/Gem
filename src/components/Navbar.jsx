@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -23,7 +23,6 @@ import {
   FiHome,
   FiGrid,
   FiMail,
-  FiPlusSquare, // Add Room ke liye icon
 } from "react-icons/fi";
 import "./Navbar.css";
 
@@ -38,6 +37,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // ===== Fetch profile =====
   useEffect(() => {
     if (!user?.uid) return;
     const fetchProfile = async () => {
@@ -47,6 +47,7 @@ const Navbar = () => {
     fetchProfile();
   }, [user?.uid]);
 
+  // ===== Unread messages =====
   useEffect(() => {
     if (!user?.uid) return;
     const q = query(
@@ -61,6 +62,7 @@ const Navbar = () => {
     return () => unsub();
   }, [user?.uid]);
 
+  // ===== Notifications =====
   useEffect(() => {
     if (!user?.uid) return;
     const q = query(
@@ -76,9 +78,13 @@ const Navbar = () => {
 
   const unreadNotifCount = notifications.filter((n) => !n.read).length;
 
+  // ===== Close dropdown =====
   useEffect(() => {
     const close = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
         setShowProfileMenu(false);
       }
     };
@@ -88,70 +94,106 @@ const Navbar = () => {
 
   return (
     <>
+      {/* ================= NAVBAR ================= */}
       <nav className="navbar">
         <div className="nav-container">
           <h3 className="logo" onClick={() => navigate("/")}>
             Stay Safe<span className="logo-dot">.</span>
           </h3>
 
+          {/* ===== DESKTOP LINKS (ONLY WHEN LOGGED IN) ===== */}
           <div className="nav-links desktop">
             {user && (
               <>
-                <NavLink to="/" className="hover-underline" end>Home</NavLink>
-                <NavLink to="/rooms" className="hover-underline">Rooms</NavLink>
+                <Link to="/" className="hover-underline">Home</Link>
+                <Link to="/rooms" className="hover-underline">Rooms</Link>
 
                 {profile?.role === "owner" ? (
-                  <NavLink to="/booking-requests" className="hover-underline">
+                  <Link to="/booking-requests" className="hover-underline">
                     Requests
-                    {unreadNotifCount > 0 && <span className="link-badge">{unreadNotifCount}</span>}
-                  </NavLink>
+                    {unreadNotifCount > 0 && (
+                      <span className="link-badge">{unreadNotifCount}</span>
+                    )}
+                  </Link>
                 ) : (
-                  <NavLink to="/my-requests" className="hover-underline">
+                  <Link to="/my-requests" className="hover-underline">
                     My Requests
-                    {unreadNotifCount > 0 && <span className="link-badge">{unreadNotifCount}</span>}
-                  </NavLink>
+                    {unreadNotifCount > 0 && (
+                      <span className="link-badge">{unreadNotifCount}</span>
+                    )}
+                  </Link>
                 )}
 
-                <NavLink to="/dashboard" className="hover-underline">Dashboard</NavLink>
+                <Link to="/dashboard" className="hover-underline">
+                  Dashboard
+                </Link>
               </>
             )}
           </div>
 
+          {/* ===== RIGHT ACTIONS ===== */}
           <div className="nav-actions">
             {user ? (
               <div className="desktop-actions desktop">
-                <NavLink to="/inbox" className="nav-icon-link">
+                <Link to="/inbox" className="nav-icon-link">
                   <FiMessageSquare size={22} />
-                  {unreadUsersCount > 0 && <span className="icon-badge">{unreadUsersCount}</span>}
-                </NavLink>
+                  {unreadUsersCount > 0 && (
+                    <span className="icon-badge">{unreadUsersCount}</span>
+                  )}
+                </Link>
 
-                <div ref={dropdownRef} className="avatar-wrapper">
+                <div ref={dropdownRef}>
                   <img
-                    src={profile?.profileImage || "https://www.w3schools.com/howto/img_avatar.png"}
+                    src={
+                      profile?.profileImage ||
+                      "https://www.w3schools.com/howto/img_avatar.png"
+                    }
                     alt="profile"
                     className="nav-avatar"
-                    onClick={() => setShowProfileMenu(!showProfileMenu)}
+                    onClick={() =>
+                      setShowProfileMenu(!showProfileMenu)
+                    }
                   />
+
                   {showProfileMenu && (
                     <div className="profile-menu">
                       <div className="menu-header">
-                        <p className="user-name">{profile?.name || "User"}</p>
+                        <p className="user-name">
+                          {profile?.name || "User"}
+                        </p>
                         <p className="user-role">{profile?.role}</p>
                       </div>
-                      <div className="menu-item" onClick={() => { navigate("/profile"); setShowProfileMenu(false); }}>
+
+                      <div
+                        className="menu-item"
+                        onClick={() => navigate("/profile")}
+                      >
                         <FiUser /> My Profile
                       </div>
-                      <div className="menu-item" onClick={() => { navigate("/feedback"); setShowProfileMenu(false); }}>
+                      <div
+                        className="menu-item"
+                        onClick={() => navigate("/feedback")}
+                      >
                         <FiMessageCircle /> Feedback
                       </div>
-                      <div className="menu-item" onClick={() => { navigate("/contact"); setShowProfileMenu(false); }}>
+                      <div
+                        className="menu-item"
+                        onClick={() => navigate("/contact")}
+                      >
                         <FiPhoneCall /> Contact
                       </div>
-                      <div className="menu-item" onClick={() => { navigate("/help"); setShowProfileMenu(false); }}>
+                      <div
+                        className="menu-item"
+                        onClick={() => navigate("/help")}
+                      >
                         <FiHelpCircle /> Help
                       </div>
+
                       <hr className="menu-divider" />
-                      <div className="menu-item logout-text" onClick={logout}>
+                      <div
+                        className="menu-item logout-text"
+                        onClick={logout}
+                      >
                         <FiLogOut /> Logout
                       </div>
                     </div>
@@ -160,59 +202,112 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="auth-btns desktop">
-                <NavLink to="/login" className="login-link">Login</NavLink>
-                <NavLink to="/register" className="reg-btn">Register</NavLink>
+                <Link to="/login" className="login-link">
+                  Login
+                </Link>
+                <Link to="/register" className="reg-btn">
+                  Register
+                </Link>
               </div>
             )}
 
-            <div className="mobile-menu-btn" onClick={() => setMobileOpen(true)}>
+            {/* ===== MOBILE MENU BUTTON ===== */}
+            <div
+              className="mobile-menu-btn"
+              onClick={() => setMobileOpen(true)}
+            >
               <FiMenu size={26} />
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Sidebar */}
-      <div className={`sidebar-overlay ${mobileOpen ? "active" : ""}`} onClick={() => setMobileOpen(false)} />
+      {/* ================= MOBILE SIDEBAR ================= */}
+      <div
+        className={`sidebar-overlay ${mobileOpen ? "active" : ""}`}
+        onClick={() => setMobileOpen(false)}
+      />
 
       <div className={`sidebar ${mobileOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <FiX size={28} className="close-btn" onClick={() => setMobileOpen(false)} />
+          <FiX
+            size={28}
+            className="close-btn"
+            onClick={() => setMobileOpen(false)}
+          />
         </div>
 
-        {user ? (
+        {user && (
           <>
-            <div className="sidebar-profile" onClick={() => { navigate("/profile"); setMobileOpen(false); }}>
-              <img src={profile?.profileImage || "https://www.w3schools.com/howto/img_avatar.png"} alt="profile" />
+            <div className="sidebar-profile">
+              <img
+                src={
+                  profile?.profileImage ||
+                  "https://www.w3schools.com/howto/img_avatar.png"
+                }
+                alt="profile"
+              />
               <div>
-                <p className="sidebar-user-name">{profile?.name || "User"}</p>
-                <span className="sidebar-user-role">{profile?.role}</span>
+                <p className="sidebar-user-name">
+                  {profile?.name || "User"}
+                </p>
+                <span className="sidebar-user-role">
+                  {profile?.role}
+                </span>
               </div>
             </div>
 
             <div className="sidebar-links">
-              <NavLink to="/" onClick={() => setMobileOpen(false)} end><FiHome /> Home</NavLink>
-              <NavLink to="/rooms" onClick={() => setMobileOpen(false)}><FiGrid /> Rooms</NavLink>
-              
-              <NavLink to="/dashboard" onClick={() => setMobileOpen(false)}><FiGrid /> Dashboard</NavLink>
+              <Link to="/" onClick={() => setMobileOpen(false)}>
+                <FiHome /> Home
+              </Link>
+              <Link to="/rooms" onClick={() => setMobileOpen(false)}>
+                <FiGrid /> Rooms
+              </Link>
 
               {profile?.role === "owner" ? (
-                <>
-                  <NavLink to="/add-room" onClick={() => setMobileOpen(false)}><FiPlusSquare /> Add Room</NavLink>
-                  <NavLink to="/booking-requests" onClick={() => setMobileOpen(false)}><FiMail /> Requests</NavLink>
-                </>
+                <Link
+                  to="/booking-requests"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <FiMail /> Requests
+                </Link>
               ) : (
-                <NavLink to="/my-requests" onClick={() => setMobileOpen(false)}><FiMail /> My Requests</NavLink>
+                <Link
+                  to="/my-requests"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <FiMail /> My Requests
+                </Link>
               )}
-              
-              <NavLink to="/inbox" onClick={() => setMobileOpen(false)}><FiMessageSquare /> Messages</NavLink>
-              <button className="sidebar-logout" onClick={logout}><FiLogOut /> Logout</button>
+
+              <Link to="/inbox" onClick={() => setMobileOpen(false)}>
+                <FiMessageSquare /> Messages
+              </Link>
+
+              <button className="sidebar-logout" onClick={logout}>
+                <FiLogOut /> Logout
+              </button>
             </div>
           </>
-        ) : (
+        )}
+
+        {!user && (
           <div className="sidebar-auth-grid">
-            <NavLink to="/login" className="side-login" onClick={() => setMobileOpen(false)}>Login</NavLink>
-            <NavLink to="/register" className="side-reg" onClick={() => setMobileOpen(false)}>Register</NavLink>
+            <Link
+              to="/login"
+              className="side-login"
+              onClick={() => setMobileOpen(false)}
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="side-reg"
+              onClick={() => setMobileOpen(false)}
+            >
+              Register
+            </Link>
           </div>
         )}
       </div>
