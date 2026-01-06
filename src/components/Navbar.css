@@ -347,6 +347,22 @@
   cursor: pointer;
 }
 
+/* ===== MOBILE SIDEBAR BADGE ===== */
+.sidebar-badge {
+  margin-left: auto;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 11px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  padding: 0 6px;
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 1024px) {
   .desktop {
