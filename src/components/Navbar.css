@@ -14,7 +14,6 @@ html, body {
    1. GLOBAL DESIGN TOKENS
    ========================================================================== */
 :root {
-  /* Colors */
   --primary: #4f46e5;
   --primary-hover: #4338ca;
   --primary-light: #eef2ff;
@@ -26,7 +25,6 @@ html, body {
   --danger: #ef4444;
   --danger-bg: #fef2f2;
   
-  /* Borders & Shadows */
   --border-light: #f1f5f9;
   --border-medium: #e2e8f0;
   --shadow-sm: 0 2px 15px rgba(0, 0, 0, 0.03);
@@ -34,12 +32,10 @@ html, body {
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
   --shadow-dropdown: 0 12px 40px rgba(0, 0, 0, 0.12);
   
-  /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s ease;
   
-  /* Dimensions */
   --nav-height-desktop: 85px;
   --nav-height-mobile: 70px;
   --sidebar-width: 320px;
@@ -98,16 +94,8 @@ html, body {
   user-select: none;
 }
 
-.logo:hover {
-  opacity: 0.8;
-}
-
-.logo-dot {
-  color: var(--primary);
-  font-size: 34px;
-  margin-left: 1px;
-  line-height: 0;
-}
+.logo:hover { opacity: 0.8; }
+.logo-dot { color: var(--primary); font-size: 34px; margin-left: 1px; line-height: 0; }
 
 /* ==========================================================================
    4. DESKTOP NAVIGATION LINKS
@@ -134,46 +122,17 @@ html, body {
   white-space: nowrap;
 }
 
-.nav-link svg {
-  font-size: 19px;
-  opacity: 0.7;
-  transition: var(--transition-fast);
-}
-
-.nav-link:hover {
-  color: var(--primary);
-  background: var(--bg-subtle);
-}
-
-.nav-link:hover svg {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-.nav-link.active {
-  color: var(--primary);
-  background: var(--primary-light);
-}
-
-.nav-link.active svg {
-  opacity: 1;
-  color: var(--primary);
-}
+.nav-link svg { font-size: 19px; opacity: 0.7; transition: var(--transition-fast); }
+.nav-link:hover { color: var(--primary); background: var(--bg-subtle); }
+.nav-link:hover svg { opacity: 1; transform: translateY(-1px); }
+.nav-link.active { color: var(--primary); background: var(--primary-light); }
+.nav-link.active svg { opacity: 1; color: var(--primary); }
 
 /* ==========================================================================
   5. ACTION BUTTONS (INBOX, BADGES)
    ========================================================================== */
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.desktop-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.desktop-actions { display: flex; align-items: center; gap: 15px; }
 
 .nav-icon-link {
   position: relative;
@@ -188,11 +147,7 @@ html, body {
   text-decoration: none;
 }
 
-.nav-icon-link:hover {
-  background: var(--bg-subtle);
-  color: var(--primary);
-  transform: scale(1.05);
-}
+.nav-icon-link:hover { background: var(--bg-subtle); color: var(--primary); transform: scale(1.05); }
 
 .icon-badge {
   position: absolute;
@@ -225,10 +180,7 @@ html, body {
 /* ==========================================================================
   6. PROFILE WRAPPER & DROPDOWN MENU
    ========================================================================== */
-.profile-wrapper {
-  position: relative;
-  margin-left: 10px;
-}
+.profile-wrapper { position: relative; margin-left: 10px; }
 
 .nav-avatar-container {
   cursor: pointer;
@@ -241,14 +193,8 @@ html, body {
   justify-content: center;
 }
 
-.nav-avatar-container:hover {
-  border-color: var(--border-medium);
-}
-
-.active-ring {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
+.nav-avatar-container:hover { border-color: var(--border-medium); }
+.active-ring { border-color: var(--primary) !important; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
 
 .nav-avatar {
   width: 44px;
@@ -289,30 +235,10 @@ html, body {
   border-bottom: 1px solid var(--border-light);
 }
 
-.menu-header img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: var(--shadow-sm);
-}
+.menu-header img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fff; box-shadow: var(--shadow-sm); }
 
-.user-info {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.user-name {
-  font-weight: 700;
-  font-size: 16px;
-  margin: 0;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  letter-spacing: -0.2px;
-}
+.user-info { display: flex; flex-direction: column; overflow: hidden; }
+.user-name { font-weight: 700; font-size: 16px; margin: 0; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.2px; }
 
 .user-role-badge {
   font-size: 10px;
@@ -326,72 +252,21 @@ html, body {
   margin-top: 4px;
 }
 
-.user-email-text {
-  font-size: 12px;
-  color: var(--text-light);
-  margin-top: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.user-email-text { font-size: 12px; color: var(--text-light); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.menu-items-grid {
-  padding: 12px;
-}
+.menu-items-grid { padding: 12px; }
+.menu-item { padding: 12px 16px; display: flex; align-items: center; gap: 14px; font-size: 15px; color: var(--text-main); font-weight: 500; cursor: pointer; border-radius: 10px; transition: var(--transition-fast); }
+.menu-item svg { font-size: 20px; color: var(--text-muted); flex-shrink: 0; transition: var(--transition-fast); }
+.menu-item:hover { background: var(--bg-subtle); color: var(--primary); padding-left: 20px; }
+.menu-item:hover svg { color: var(--primary); transform: scale(1.1); }
 
-.menu-item {
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 15px;
-  color: var(--text-main);
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: var(--transition-fast);
-}
-
-.menu-item svg {
-  font-size: 20px;
-  color: var(--text-muted);
-  flex-shrink: 0;
-  transition: var(--transition-fast);
-}
-
-.menu-item:hover {
-  background: var(--bg-subtle);
-  color: var(--primary);
-  padding-left: 20px;
-}
-
-.menu-item:hover svg {
-  color: var(--primary);
-  transform: scale(1.1);
-}
-
-.menu-divider {
-  height: 1px;
-  background: var(--border-light);
-  margin: 8px 16px;
-}
-
-.logout-text {
-  color: var(--danger) !important;
-  margin-top: 5px;
-  font-weight: 600;
-}
-
-.logout-text:hover {
-  background: var(--danger-bg) !important;
-}
-
-.logout-text svg {
-  color: var(--danger);
-}
+.menu-divider { height: 1px; background: var(--border-light); margin: 8px 16px; }
+.logout-text { color: var(--danger) !important; margin-top: 5px; font-weight: 600; }
+.logout-text:hover { background: var(--danger-bg) !important; }
+.logout-text svg { color: var(--danger); }
 
 /* ==========================================================================
-   7. SIDEBAR & MOBILE NAVIGATION (Optimized for No-Scroll)
+   7. SIDEBAR & MOBILE NAVIGATION (Fixes Logout Button & Scroll)
    ========================================================================== */
 .mobile-menu-btn {
   display: none;
@@ -399,49 +274,29 @@ html, body {
   border-radius: 12px;
   color: var(--text-main);
   cursor: pointer;
-  transition: var(--transition-fast);
   background: transparent;
   border: none;
 }
 
-.mobile-menu-btn:hover {
-  background: var(--bg-subtle);
-}
-
-.hamburger-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobile-dot {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background: var(--danger);
-  border: 2px solid white;
-  border-radius: 50%;
-}
+.hamburger-box { position: relative; display: flex; align-items: center; justify-content: center; }
+.mobile-dot { position: absolute; top: 0; right: 0; width: 10px; height: 10px; background: var(--danger); border: 2px solid white; border-radius: 50%; }
 
 .sidebar {
   position: fixed;
   top: 0;
   right: 0; 
-  /* Use transform instead of right to prevent overflow scroll */
-  transform: translateX(105%); 
+  transform: translateX(105%); /* Use transform to avoid horizontal layout push */
   width: var(--sidebar-width);
   max-width: 85%;
   height: 100vh;
   background: #fff;
   z-index: 2001;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 40px rgba(0,0,0,0.1);
   visibility: hidden; 
+  box-sizing: border-box; /* Crucial for internal padding */
 }
 
 .sidebar.open {
@@ -461,10 +316,7 @@ html, body {
   transition: all 0.4s ease;
 }
 
-.sidebar-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
+.sidebar-overlay.active { opacity: 1; visibility: visible; }
 
 .sidebar-header {
   padding: 24px;
@@ -474,58 +326,21 @@ html, body {
   border-bottom: 1px solid var(--border-light);
 }
 
-.close-btn {
-  cursor: pointer;
-  color: var(--text-muted);
-  transition: var(--transition-fast);
-}
-
-.close-btn:hover {
-  color: var(--danger);
-  transform: rotate(90deg);
-}
-
 .sidebar-profile {
-  padding: 20px;
+  padding: 16px;
   margin: 15px;
   background: var(--bg-subtle);
   border-radius: 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  box-sizing: border-box; /* Keeps it within sidebar width */
 }
 
-.sidebar-profile img {
-  width: 54px;
-  height: 54px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.sidebar-user-details {
-  overflow: hidden;
-}
-
-.sidebar-user-name {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--text-main);
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sidebar-user-email {
-  font-size: 12px;
-  color: var(--text-light);
-  margin: 2px 0 0 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.sidebar-profile img { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+.sidebar-user-name { font-weight: 700; font-size: 15px; color: var(--text-main); margin: 0; }
+.sidebar-user-email { font-size: 11px; color: var(--text-light); margin: 2px 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .sidebar-links {
   padding: 10px 15px;
@@ -534,59 +349,37 @@ html, body {
   gap: 5px;
   flex: 1;
   overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.sidebar-links::-webkit-scrollbar {
-  display: none;
+  box-sizing: border-box;
 }
 
 .side-link {
   text-decoration: none;
-  padding: 14px 18px;
-  border-radius: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
   color: var(--text-muted);
   font-weight: 600;
   font-size: 15px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  transition: var(--transition-smooth);
+  gap: 12px;
+  box-sizing: border-box;
 }
 
-.side-link:hover, .side-link.active {
-  background: var(--primary-light);
-  color: var(--primary);
-}
+.side-link:hover, .side-link.active { background: var(--primary-light); color: var(--primary); }
 
-.sidebar-badge, .sidebar-badge-msg {
-  margin-left: auto;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 20px;
-  color: #fff;
-}
-
+.sidebar-badge, .sidebar-badge-msg { margin-left: auto; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; color: #fff; }
 .sidebar-badge { background: var(--primary); }
 .sidebar-badge-msg { background: var(--danger); }
 
-.sidebar-divider {
-  padding: 20px 18px 10px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--text-light);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
+/* --- FIX: Logout Button Alignment --- */
 .sidebar-logout-btn {
-  margin: 15px;
+  margin: 15px; /* Margin pulls it away from edges */
+  width: calc(100% - 30px); /* Explicitly calculate width based on margin to stay within sidebar */
   background: var(--danger-bg);
   color: var(--danger);
   border: none;
-  padding: 16px;
-  border-radius: 14px;
+  padding: 14px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 15px;
   display: flex;
@@ -595,146 +388,54 @@ html, body {
   gap: 10px;
   cursor: pointer;
   transition: var(--transition-smooth);
+  box-sizing: border-box; /* Ensures padding/border doesn't increase width */
 }
 
-.sidebar-logout-btn:hover {
-  background: var(--danger);
-  color: white;
-}
-
-/* Sidebar Auth Content */
-.sidebar-auth-content {
-  padding: 30px 20px;
-  text-align: center;
-}
-
-.auth-msg {
-  color: var(--text-muted);
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 25px;
-}
-
-.sidebar-auth-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.side-login, .side-reg {
-  padding: 14px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: var(--transition-smooth);
-}
-
-.side-login {
-  background: var(--bg-subtle);
-  color: var(--text-main);
-}
-
-.side-reg {
-  background: var(--primary);
-  color: #fff;
-}
+.sidebar-logout-btn:hover { background: var(--danger); color: white; }
 
 /* ==========================================================================
-   8. MEDIA QUERIES (Handling Mobile Constraints)
+   8. MEDIA QUERIES
    ========================================================================== */
-@media (max-width: 1200px) {
-  .nav-container { padding: 0 2rem; }
-  .nav-links.desktop { margin-left: 20px; gap: 4px; }
-}
-
 @media (max-width: 1024px) {
   .desktop { display: none !important; }
   .mobile-menu-btn { display: flex; align-items: center; }
   .navbar { height: var(--nav-height-mobile); }
-  .logo { font-size: 22px; }
 }
 
 @media (max-width: 480px) {
-  /* Set side-panel to full width but keep inside bounds */
   .sidebar { width: 100%; max-width: 100%; }
-  .nav-container { padding: 0 1.25rem; }
-  .logo-dot { font-size: 28px; }
+  .nav-container { padding: 0 1rem; }
   
-  .nav-container {
-    overflow: hidden;
-  }
+  /* Critical Reset for Mobile */
+  * { box-sizing: border-box; }
+  
+  .nav-container { overflow: hidden; }
 }
 
-/* Force hide any potential overflow on mobile devices */
 @media screen and (max-width: 768px) {
   html, body {
     overflow-x: hidden !important;
-    width: 100%;
+    width: 100vw;
     position: relative;
   }
 }
 
 /* ==========================================================================
-  9. UTILS & TOOLTIPS
+  9. UTILS & OTHERS
    ========================================================================== */
 .tooltip-trigger { position: relative; }
+.tooltip { position: absolute; top: 55px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 11px; opacity: 0; pointer-events: none; transition: all 0.3s ease; white-space: nowrap; }
+.tooltip-trigger:hover .tooltip { opacity: 1; top: 50px; }
 
-.tooltip {
-  position: absolute;
-  top: 55px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1e293b;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 11px;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
+.auth-btns { display: flex; align-items: center; gap: 10px; }
+.login-link { text-decoration: none; color: var(--text-main); font-weight: 700; padding: 10px 18px; }
+.reg-btn { text-decoration: none; background: var(--primary); color: #fff !important; font-weight: 700; padding: 10px 22px; border-radius: 10px; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); }
 
-.tooltip-trigger:hover .tooltip {
-  opacity: 1;
-  top: 50px;
-}
-
-/* Auth Buttons Desktop */
-.auth-btns {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.login-link {
-  text-decoration: none;
-  color: var(--text-main);
-  font-weight: 700;
-  padding: 10px 18px;
-}
-
-.reg-btn {
-  text-decoration: none;
-  background: var(--primary);
-  color: #fff !important;
-  font-weight: 700;
-  padding: 10px 22px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
-}
-
-/* Smooth Pulse for Badges */
-.pulse {
-  animation: pulse-red 2s infinite;
-}
-
+.pulse { animation: pulse-red 2s infinite; }
 @keyframes pulse-red {
   0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
   70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
   100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
 }
 
-body.menu-open {
-  overflow: hidden;
-}
+body.menu-open { overflow: hidden; }
