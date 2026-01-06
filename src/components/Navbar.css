@@ -124,7 +124,7 @@
   margin-left: 6px;
 }
 
-/* ================= PROFILE ================= */
+/* ================= PROFILE DROPDOWN ================= */
 .nav-avatar {
   width: 42px;
   height: 42px;
@@ -165,6 +165,7 @@
 .user-role {
   font-size: 12px;
   color: #64748b;
+  text-transform: capitalize;
 }
 
 .menu-item {
@@ -192,10 +193,10 @@
   font-weight: 600;
 }
 
-/* ================= AUTH BUTTONS (FIXED) ================= */
+/* ================= AUTH BUTTONS ================= */
 .auth-btns {
   display: flex;
-  align-items: center;      /* 🔥 alignment fix */
+  align-items: center;
   gap: 16px;
 }
 
@@ -208,7 +209,6 @@
   text-decoration: none;
   color: #475569;
   font-weight: 600;
-  font-size: 15px;
 }
 
 .login-link:hover {
@@ -232,10 +232,11 @@
   background: #4338ca;
 }
 
-/* ================= MOBILE MENU ================= */
+/* ================= MOBILE MENU BUTTON ================= */
 .mobile-menu-btn {
   display: none;
   cursor: pointer;
+  color: #1e293b;
 }
 
 /* ================= SIDEBAR ================= */
@@ -247,18 +248,22 @@
   height: 100vh;
   background: #fff;
   padding: 20px;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2001;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar.open {
   right: 0;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
 .sidebar-overlay {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
   display: none;
   z-index: 2000;
 }
@@ -277,21 +282,43 @@
   color: #94a3b8;
 }
 
+/* ===== SIDEBAR PROFILE (FIXED) ===== */
 .sidebar-profile {
   display: flex;
   gap: 15px;
   padding: 18px;
-  background: #f8fafc;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
   border-radius: 16px;
   margin: 20px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sidebar-profile:hover {
+  background: #eef2ff;
 }
 
 .sidebar-profile img {
   width: 50px;
   height: 50px;
   border-radius: 12px;
+  object-fit: cover;
 }
 
+.sidebar-user-name {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+  color: #1e293b;
+}
+
+.sidebar-user-role {
+  font-size: 12px;
+  color: #64748b;
+  text-transform: capitalize;
+}
+
+/* ================= SIDEBAR LINKS ================= */
 .sidebar-links {
   display: flex;
   flex-direction: column;
@@ -305,6 +332,7 @@
   padding: 14px 16px;
   border-radius: 12px;
   display: flex;
+  align-items: center;
   gap: 14px;
 }
 
@@ -313,9 +341,11 @@
   color: #4f46e5;
 }
 
+/* ================= SIDEBAR AUTH ================= */
 .sidebar-auth-grid {
   display: grid;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .side-login,
@@ -329,6 +359,7 @@
 
 .side-login {
   border: 1px solid #e2e8f0;
+  color: #475569;
 }
 
 .side-reg {
@@ -336,6 +367,7 @@
   color: #fff;
 }
 
+/* ================= LOGOUT ================= */
 .sidebar-logout {
   margin-top: auto;
   background: #fff1f2;
@@ -345,6 +377,10 @@
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 /* ================= RESPONSIVE ================= */

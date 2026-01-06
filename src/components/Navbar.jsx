@@ -81,10 +81,7 @@ const Navbar = () => {
   // ===== Close dropdown =====
   useEffect(() => {
     const close = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowProfileMenu(false);
       }
     };
@@ -101,7 +98,7 @@ const Navbar = () => {
             Stay Safe<span className="logo-dot">.</span>
           </h3>
 
-          {/* ===== DESKTOP LINKS (ONLY WHEN LOGGED IN) ===== */}
+          {/* ===== DESKTOP LINKS ===== */}
           <div className="nav-links desktop">
             {user && (
               <>
@@ -150,50 +147,31 @@ const Navbar = () => {
                     }
                     alt="profile"
                     className="nav-avatar"
-                    onClick={() =>
-                      setShowProfileMenu(!showProfileMenu)
-                    }
+                    onClick={() => setShowProfileMenu(!showProfileMenu)}
                   />
 
                   {showProfileMenu && (
                     <div className="profile-menu">
                       <div className="menu-header">
-                        <p className="user-name">
-                          {profile?.name || "User"}
-                        </p>
+                        <p className="user-name">{profile?.name || "User"}</p>
                         <p className="user-role">{profile?.role}</p>
                       </div>
 
-                      <div
-                        className="menu-item"
-                        onClick={() => navigate("/profile")}
-                      >
+                      <div className="menu-item" onClick={() => navigate("/profile")}>
                         <FiUser /> My Profile
                       </div>
-                      <div
-                        className="menu-item"
-                        onClick={() => navigate("/feedback")}
-                      >
+                      <div className="menu-item" onClick={() => navigate("/feedback")}>
                         <FiMessageCircle /> Feedback
                       </div>
-                      <div
-                        className="menu-item"
-                        onClick={() => navigate("/contact")}
-                      >
+                      <div className="menu-item" onClick={() => navigate("/contact")}>
                         <FiPhoneCall /> Contact
                       </div>
-                      <div
-                        className="menu-item"
-                        onClick={() => navigate("/help")}
-                      >
+                      <div className="menu-item" onClick={() => navigate("/help")}>
                         <FiHelpCircle /> Help
                       </div>
 
                       <hr className="menu-divider" />
-                      <div
-                        className="menu-item logout-text"
-                        onClick={logout}
-                      >
+                      <div className="menu-item logout-text" onClick={logout}>
                         <FiLogOut /> Logout
                       </div>
                     </div>
@@ -202,20 +180,13 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="auth-btns desktop">
-                <Link to="/login" className="login-link">
-                  Login
-                </Link>
-                <Link to="/register" className="reg-btn">
-                  Register
-                </Link>
+                <Link to="/login" className="login-link">Login</Link>
+                <Link to="/register" className="reg-btn">Register</Link>
               </div>
             )}
 
             {/* ===== MOBILE MENU BUTTON ===== */}
-            <div
-              className="mobile-menu-btn"
-              onClick={() => setMobileOpen(true)}
-            >
+            <div className="mobile-menu-btn" onClick={() => setMobileOpen(true)}>
               <FiMenu size={26} />
             </div>
           </div>
@@ -230,16 +201,19 @@ const Navbar = () => {
 
       <div className={`sidebar ${mobileOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <FiX
-            size={28}
-            className="close-btn"
-            onClick={() => setMobileOpen(false)}
-          />
+          <FiX size={28} className="close-btn" onClick={() => setMobileOpen(false)} />
         </div>
 
-        {user && (
+        {user ? (
           <>
-            <div className="sidebar-profile">
+            {/* ✅ PROFILE SECTION FIXED */}
+            <div
+              className="sidebar-profile"
+              onClick={() => {
+                navigate("/profile");
+                setMobileOpen(false);
+              }}
+            >
               <img
                 src={
                   profile?.profileImage ||
@@ -248,12 +222,8 @@ const Navbar = () => {
                 alt="profile"
               />
               <div>
-                <p className="sidebar-user-name">
-                  {profile?.name || "User"}
-                </p>
-                <span className="sidebar-user-role">
-                  {profile?.role}
-                </span>
+                <p className="sidebar-user-name">{profile?.name || "User"}</p>
+                <span className="sidebar-user-role">{profile?.role}</span>
               </div>
             </div>
 
@@ -266,17 +236,11 @@ const Navbar = () => {
               </Link>
 
               {profile?.role === "owner" ? (
-                <Link
-                  to="/booking-requests"
-                  onClick={() => setMobileOpen(false)}
-                >
+                <Link to="/booking-requests" onClick={() => setMobileOpen(false)}>
                   <FiMail /> Requests
                 </Link>
               ) : (
-                <Link
-                  to="/my-requests"
-                  onClick={() => setMobileOpen(false)}
-                >
+                <Link to="/my-requests" onClick={() => setMobileOpen(false)}>
                   <FiMail /> My Requests
                 </Link>
               )}
@@ -290,22 +254,12 @@ const Navbar = () => {
               </button>
             </div>
           </>
-        )}
-
-        {!user && (
+        ) : (
           <div className="sidebar-auth-grid">
-            <Link
-              to="/login"
-              className="side-login"
-              onClick={() => setMobileOpen(false)}
-            >
+            <Link to="/login" className="side-login" onClick={() => setMobileOpen(false)}>
               Login
             </Link>
-            <Link
-              to="/register"
-              className="side-reg"
-              onClick={() => setMobileOpen(false)}
-            >
+            <Link to="/register" className="side-reg" onClick={() => setMobileOpen(false)}>
               Register
             </Link>
           </div>
