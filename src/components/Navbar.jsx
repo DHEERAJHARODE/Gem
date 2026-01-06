@@ -197,45 +197,17 @@ const Navbar = () => {
               </div>
             </div>
 
-          <div className="sidebar-links">
-          <NavLink to="/" onClick={() => setMobileOpen(false)} end>
-            <FiHome /> Home
-          </NavLink>
-          
-          <NavLink to="/rooms" onClick={() => setMobileOpen(false)}>
-            <FiGrid /> Rooms
-          </NavLink>
-
-          {/* Dashboard link add kiya gaya */}
-          <NavLink to="/dashboard" onClick={() => setMobileOpen(false)}>
-            <FiGrid /> Dashboard 
-          </NavLink>
-
-          {profile?.role === "owner" ? (
-            <>
-              {/* Add Room sirf owner ko dikhega */}
-              <NavLink to="/add-room" onClick={() => setMobileOpen(false)}>
-                <FiPlusCircle /> Add Room
-              </NavLink>
-              
-              <NavLink to="/booking-requests" onClick={() => setMobileOpen(false)}>
-                <FiMail /> Requests
-              </NavLink>
-            </>
-          ) : (
-            <NavLink to="/my-requests" onClick={() => setMobileOpen(false)}>
-              <FiMail /> My Requests
-            </NavLink>
-          )}
-
-          <NavLink to="/inbox" onClick={() => setMobileOpen(false)}>
-            <FiMessageSquare /> Messages
-          </NavLink>
-          
-          <button className="sidebar-logout" onClick={logout}>
-            <FiLogOut /> Logout
-          </button>
-        </div>
+            <div className="sidebar-links">
+              <NavLink to="/" onClick={() => setMobileOpen(false)} end><FiHome /> Home</NavLink>
+              <NavLink to="/rooms" onClick={() => setMobileOpen(false)}><FiGrid /> Rooms</NavLink>
+              {profile?.role === "owner" ? (
+                <NavLink to="/booking-requests" onClick={() => setMobileOpen(false)}><FiMail /> Requests</NavLink>
+              ) : (
+                <NavLink to="/my-requests" onClick={() => setMobileOpen(false)}><FiMail /> My Requests</NavLink>
+              )}
+              <NavLink to="/inbox" onClick={() => setMobileOpen(false)}><FiMessageSquare /> Messages</NavLink>
+              <button className="sidebar-logout" onClick={logout}><FiLogOut /> Logout</button>
+            </div>
           </>
         ) : (
           <div className="sidebar-auth-grid">
